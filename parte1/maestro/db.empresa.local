@@ -1,0 +1,34 @@
+$TTL 604800
+@ IN SOA maestro.empresa.local. admin.empresa.local. (
+                2026090503 ; Serial AAAAMMDDNN
+                3600       ; Refresh
+                1800       ; Retry
+                604800     ; Expire
+                300 )      ; Minimum TTL
+
+; Servidores de nombres
+@       IN NS   maestro.empresa.local.
+@       IN NS   esclavo.empresa.local.
+
+; Registros A (IPv4)
+maestro IN A    192.168.50.10
+esclavo IN A    192.168.50.20
+cliente IN A    192.168.50.30
+www     IN A    192.168.50.10
+mail    IN A    192.168.50.10
+ns1     IN A    192.168.50.10
+ns2     IN A    192.168.50.20
+
+prueba  IN A    192.168.50.99
+
+parcial IN A    192.168.50.10
+
+; Registros AAAA (IPv6)
+www     IN AAAA ::1
+mail    IN AAAA ::1
+
+; Registros CNAME (alias)
+ftp     IN CNAME www.empresa.local.
+
+; Registro MX (correo)
+@       IN MX 10 mail.empresa.local.

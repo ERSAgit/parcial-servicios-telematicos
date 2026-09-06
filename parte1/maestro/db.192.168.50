@@ -1,0 +1,16 @@
+$TTL 604800
+@ IN SOA maestro.empresa.local. admin.empresa.local. (
+                2026090501 ; Serial
+                3600       ; Refresh
+                1800       ; Retry
+                604800     ; Expire
+                300 )      ; Minimum TTL
+
+; Servidores de nombres
+@       IN NS   maestro.empresa.local.
+@       IN NS   esclavo.empresa.local.
+
+; Registros PTR (IP → nombre)
+10      IN PTR  maestro.empresa.local.
+20      IN PTR  esclavo.empresa.local.
+30      IN PTR  cliente.empresa.local.

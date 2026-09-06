@@ -1,0 +1,40 @@
+options {
+    directory "/var/cache/bind";
+
+    recursion no;
+    allow-query { 192.168.50.0/24; };
+    allow-transfer { none; };
+
+    dnssec-validation auto;
+    listen-on { any; };
+
+    rate-limit {
+        responses-per-second 10;
+        window 5;
+    };
+};
+
+logging {
+    channel queries_log {
+        file "/var/log/named/queries.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+        print-severity yes;
+    };
+    channel transfers_log {
+        file "/var/log/named/transfers.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+        print-severity yes;
+    };
+    channel security_log {
+        file "/var/log/named/security.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+        print-severity yes;
+    };
+
+    category queries { queries_log; };
+    category xfer-out { transfers_log; };
+    category security { security_log; };
+};
