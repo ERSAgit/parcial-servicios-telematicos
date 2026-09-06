@@ -1,48 +1,49 @@
-\# Parcial Servicios Telemáticos
+# Parcial Servicios Telematicos
 
-\## Emmanuel Solarte — Ingeniería Informática UAO
+## Emmanuel Solarte - Ingenieria Informatica UAO
 
-\## Fecha: 8 de septiembre de 2026
+## Fecha: 8 de septiembre de 2026
 
+## Descripcion
 
+Microproyecto integrador: DNS tolerante a fallos, optimizacion de trafico web y publicacion segura.
 
-\## Descripción
+## Infraestructura
 
-Microproyecto integrador: DNS tolerante a fallos, optimización de tráfico web y publicación segura.
+- VM1 Maestro: 192.168.50.10
+- VM2 Esclavo: 192.168.50.20
+- VM3 Cliente: 192.168.50.30
+- Dominio: empresa.local
 
+## Estructura del repositorio
 
+### parte1 - DNS Maestro/Esclavo con TSIG
 
-\## Estructura
+- maestro/named.conf.options: configuracion global del maestro
+- maestro/named.conf.local: zonas del maestro
+- maestro/db.empresa.local: zona directa
+- maestro/db.192.168.50: zona inversa
+- maestro/tsig-esclavo.key: clave TSIG para transferencia segura
+- esclavo/named.conf.options: configuracion global del esclavo
+- esclavo/named.conf.local: zonas del esclavo
 
-\- \*\*parte1/\*\*: Configuración DNS Maestro/Esclavo con TSIG
+### parte2 - Compresion Apache mod_deflate y mod_brotli
 
-&#x20; - maestro/: named.conf.options, named.conf.local, db.empresa.local, db.192.168.50, tsig-esclavo.key
+- parcial.conf: virtual host con compresion habilitada
+- mediciones.sh: script de medicion de compresion
+- tabla_comparativa.md: resultados de compresion por tipo de archivo
+- sitio/index.html: pagina principal del sitio de prueba
 
-&#x20; - esclavo/: named.conf.options, named.conf.local
+### parte3 - Tunel seguro con cloudflared
 
-\- \*\*parte2/\*\*: Configuración Apache con mod\_deflate y mod\_brotli
+- pagina_personalizada.html: pagina accesible desde internet
+- analisis_seguridad.md: riesgos y mitigaciones del tunel publico
 
-&#x20; - parcial.conf: Virtual host con compresión
+## Tecnologias usadas
 
-&#x20; - mediciones.sh: Script de medición
-
-&#x20; - tabla\_comparativa.md: Resultados de compresión
-
-&#x20; - sitio/: Archivos del sitio de prueba
-
-\- \*\*parte3/\*\*: Túnel seguro con cloudflared
-
-&#x20; - pagina\_personalizada.html: Página accesible desde internet
-
-
-
-\## Infraestructura
-
-\- VM1 Maestro: 192.168.50.10
-
-\- VM2 Esclavo: 192.168.50.20
-
-\- VM3 Cliente: 192.168.50.30
-
-\- Dominio: empresa.local
-
+- BIND9: servidor DNS
+- Apache2: servidor web
+- mod_deflate: compresion gzip
+- mod_brotli: compresion brotli
+- cloudflared: tunel seguro hacia internet
+- Vagrant + VirtualBox: virtualizacion
