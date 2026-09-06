@@ -1,48 +1,48 @@
-\# Análisis de Seguridad — Túnel Cloudflared
+\# Analisis de Seguridad - Tunel Cloudflared
 
 
 
-\## Riesgos de exponer un servidor con túnel público
+\## Riesgos de exponer un servidor con tunel publico
 
 
 
-\*\*1. Superficie de exposición\*\*
+\*\*1. Superficie de exposicion\*\*
 
-Al activar el túnel, el servidor queda expuesto a internet completo.
+Al activar el tunel, el servidor queda expuesto a internet completo.
 
 Cualquier persona en el mundo puede acceder al sitio, no solo
 
 los usuarios previstos. Esto aumenta el riesgo de ataques como
 
-fuerza bruta, scraping o exploración de vulnerabilidades.
+fuerza bruta, scraping o exploracion de vulnerabilidades.
 
 
 
-\*\*2. Ausencia de autenticación\*\*
+\*\*2. Ausencia de autenticacion\*\*
 
-El túnel no tiene ningún mecanismo de autenticación por defecto.
+El tunel no tiene ningun mecanismo de autenticacion por defecto.
 
 Cualquiera que tenga la URL puede acceder al contenido sin
 
-identificarse. En un entorno real con datos sensibles esto sería
+identificarse. En un entorno real con datos sensibles esto seria
 
 un problema grave.
 
 
 
-\*\*3. Límites del plan gratuito\*\*
+\*\*3. Limites del plan gratuito\*\*
 
 El plan gratuito de Cloudflare Tunnel no garantiza uptime,
 
 puede ser desactivado en cualquier momento por Cloudflare,
 
-y la URL cambia cada vez que se reinicia el túnel.
+y la URL cambia cada vez que se reinicia el tunel.
 
 
 
-\*\*4. Exposición mientras está activo\*\*
+\*\*4. Exposicion mientras esta activo\*\*
 
-El túnel expone el servidor durante todo el tiempo que está
+El tunel expone el servidor durante todo el tiempo que esta
 
 corriendo. Si se olvida apagarlo, el servidor queda expuesto
 
@@ -54,53 +54,29 @@ indefinidamente.
 
 
 
-\*\*Mitigación 1 — Autenticación básica con Apache\*\*
+\*\*Mitigacion 1 - Autenticacion basica con Apache\*\*
 
-Agregar autenticación HTTP básica al sitio para que solo usuarios
+Agregar autenticacion HTTP basica al sitio para que solo usuarios
 
-con usuario y contraseña puedan acceder:
+con usuario y contrasena puedan acceder. Se configura con htpasswd
 
+y el bloque Directory en Apache igual que hicimos en la practica
 
-
-```apache
-
-<Directory "/var/www/parcial">
-
-&#x20;   AuthType Basic
-
-&#x20;   AuthName "Acceso restringido"
-
-&#x20;   AuthUserFile /etc/apache2/claves
-
-&#x20;   Require valid-user
-
-</Directory>
-
-```
+de directorios protegidos.
 
 
 
-\*\*Mitigación 2 — Apagar el túnel al terminar\*\*
+\*\*Mitigacion 2 - Apagar el tunel al terminar\*\*
 
-El túnel solo debe estar activo durante las pruebas. Al terminar
+El tunel solo debe estar activo durante las pruebas. Al terminar
 
-se detiene con Ctrl+C. Nunca dejarlo corriendo sin supervisión.
-
-
-
-\*\*Mitigación 3 — Restricción por IP\*\*
-
-Limitar el acceso solo a IPs conocidas usando Apache:
+se detiene con Ctrl+C. Nunca dejarlo corriendo sin supervision.
 
 
 
-```apache
+\*\*Mitigacion 3 - Restriccion por IP\*\*
 
-<Directory "/var/www/parcial">
+Limitar el acceso solo a IPs conocidas usando la directiva
 
-&#x20;   Require ip 192.168.50.0/24
-
-</Directory>
-
-```
+Require ip en Apache, permitiendo solo rangos de red especificos.
 
