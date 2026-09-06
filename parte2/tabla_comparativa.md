@@ -1,8 +1,8 @@
 \# Tabla Comparativa de Compresión
 
-\## Recurso evaluado: lorem.txt
 
-\## Tamaño original: 620,001 bytes
+
+\## Recurso: lorem.txt (texto plano) — Tamaño original: 620,001 bytes
 
 
 
@@ -10,7 +10,7 @@
 
 |---|---|---|---|---|
 
-| Sin comprimir (base) | 620,001 | 1.0 | 0% | 0.120 |
+| Sin comprimir (base) | 620,001 | 1.000 | 0% | 0.120 |
 
 | gzip nivel 1 | 4,395 | 0.007 | 99.3% | 0.031 |
 
@@ -24,13 +24,95 @@
 
 
 
+\## Recurso: index.html — Tamaño original: 282 bytes
+
+
+
+| Algoritmo / nivel | Tamaño (bytes) | Ratio | Ahorro % | Tiempo (s) |
+
+|---|---|---|---|---|
+
+| Sin comprimir (base) | 282 | 1.000 | 0% | - |
+
+| gzip nivel 6 | 221 | 0.784 | 21.6% | - |
+
+| brotli calidad 11 | 166 | 0.589 | 41.1% | - |
+
+
+
+\## Recurso: estilos.css — Tamaño original: 510 bytes
+
+
+
+| Algoritmo / nivel | Tamaño (bytes) | Ratio | Ahorro % | Tiempo (s) |
+
+|---|---|---|---|---|
+
+| Sin comprimir (base) | 510 | 1.000 | 0% | - |
+
+| gzip nivel 6 | 284 | 0.557 | 44.3% | - |
+
+| brotli calidad 11 | 184 | 0.361 | 63.9% | - |
+
+
+
+\## Recurso: datos.json — Tamaño original: 710 bytes
+
+
+
+| Algoritmo / nivel | Tamaño (bytes) | Ratio | Ahorro % | Tiempo (s) |
+
+|---|---|---|---|---|
+
+| Sin comprimir (base) | 710 | 1.000 | 0% | - |
+
+| gzip nivel 6 | 303 | 0.427 | 57.3% | - |
+
+| brotli calidad 11 | 278 | 0.392 | 60.8% | - |
+
+
+
+\## Recurso: app.js — Tamaño original: 389 bytes
+
+
+
+| Algoritmo / nivel | Tamaño (bytes) | Ratio | Ahorro % | Tiempo (s) |
+
+|---|---|---|---|---|
+
+| Sin comprimir (base) | 389 | 1.000 | 0% | - |
+
+| gzip nivel 6 | 389 | 1.000 | 0% | - |
+
+| brotli calidad 11 | 389 | 1.000 | 0% | - |
+
+
+
+\## Recurso: imagen.png (binario) — Tamaño original: 51,200 bytes
+
+
+
+| Algoritmo / nivel | Tamaño (bytes) | Ratio | Ahorro % | Tiempo (s) |
+
+|---|---|---|---|---|
+
+| Sin comprimir (base) | 51,200 | 1.000 | 0% | - |
+
+| gzip nivel 6 | 51,200 | 1.000 | 0% | - |
+
+| brotli calidad 11 | 51,200 | 1.000 | 0% | - |
+
+
+
 \## Observaciones
+
+\- Archivos de texto grandes: brotli supera ampliamente a gzip
+
+\- Archivos pequeños (JS 389B): compresión no aplica, archivo demasiado pequeño
+
+\- Archivos binarios (PNG): excluidos correctamente, no se comprimen
 
 \- gzip nivel 9 no mejora sobre nivel 6: punto de rendimientos decrecientes
 
-\- brotli comprime significativamente mejor que gzip en texto repetitivo
-
-\- brotli calidad 11 es apenas 3 bytes mejor que calidad 5 pero tarda 4x más
-
-\- Archivos binarios (PNG): mismo tamaño con y sin compresión (51,200 bytes)
+\- brotli calidad 11 apenas mejora 3 bytes sobre calidad 5 pero usa 4x más CPU
 
